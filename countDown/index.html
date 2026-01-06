@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đếm Ngược Tết 2026</title>
+
+<link href="https://fonts.googleapis.com/css?family=Chicle&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --red-top:#e53935;
+    --red-bottom:#c62828;
+    --radius:12px;
+}
+
+/* ===== BODY ===== */
+html,body{
+    margin:0;
+    height:100%;
+    font-family:'Chicle', cursive;
+}
+
+body{
+    background:url('background.jpg') center/cover no-repeat fixed;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ===== WRAPPER ===== */
+.wrapper{
+    text-align:center;
+    transform: translate(150px, 85px); /* ➡️ sang phải 50px, ⬇️ xuống 20px */
+}
+
+/* ===== TITLE ===== */
+.title{
+    font-size:44px;
+    margin-bottom:40px;
+    color:#ffffff; /* chữ trắng thuần */
+}
+
+/* ===== CONTAINER ===== */
+.flip-container{
+    display:flex;
+    gap:22px;
+    justify-content:center;
+}
+
+.flip-group{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* ===== CARD (STATIC) ===== */
+.card{
+    width:130px;
+    height:150px;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.55);
+}
+
+.top,.bottom{
+    height:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:64px;
+    font-weight:700;
+    color:#ffffff; /* chữ trắng */
+}
+
+/* ===== COLORS ===== */
+.top{
+    background:var(--red-top);
+}
+.bottom{
+    background:var(--red-bottom);
+}
+
+/* ===== LABEL ===== */
+.label{
+    margin-top:14px;
+    font-size:18px;
+    color:#ffffff;
+    letter-spacing:1px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" loop>
+    <source src="sound.mp3" type="audio/mpeg">
+</audio>
+
+<div class="wrapper">
+    <div class="title">⏳ Đếm Ngược Tết 2026 ⏳</div>
+
+    <div class="flip-container">
+
+        <div class="flip-group">
+            <div class="card">
+                <div class="top" id="days">000</div>
+                <div class="bottom">NGÀY</div>
+            </div>
+        </div>
+
+        <div class="flip-group">
+            <div class="card">
+                <div class="top" id="hours">00</div>
+                <div class="bottom">GIỜ</div>
+            </div>
+        </div>
+
+        <div class="flip-group">
+            <div class="card">
+                <div class="top" id="minutes">00</div>
+                <div class="bottom">PHÚT</div>
+            </div>
+        </div>
+
+        <div class="flip-group">
+            <div class="card">
+                <div class="top" id="seconds">00</div>
+                <div class="bottom">GIÂY</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Mục tiêu: Ngày 17 tháng 2 năm 2026 (Tết Nguyên Đán 2026)
+const targetDate = new Date('2026-02-17T00:00:00').getTime();
+// const targetDate = Date.now()+5000; // Dùng để test nhanh trong 10 giây
+
+function update(){
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    // Nếu đã đến thời gian mục tiêu, chuyển hướng trang 
+    // Đi tới code bắn pháo hoa (giả sử là index.html trong fireworks folder)
+    if (diff <= 100) {
+        window.location.href = "../firework/index.html";
+        return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+
+    // document.getElementById('days').textContent = String(d).padStart(3,'0');
+    document.getElementById('days').textContent = d >= 100 ? d : d.toString();
+    document.getElementById('hours').textContent = h >= 100 ? h : h.toString();
+    document.getElementById('minutes').textContent = m >= 100 ? m : m.toString();
+    document.getElementById('seconds').textContent = s >= 100 ? s : s.toString();
+}
+
+setInterval(update, 1000);
+update();
+</script>
+
+<!-- // ===== PLAY MUSIC ON CLICK ===== -->
+<script>
+document.addEventListener("click", function playMusicOnce() {
+    const audio = document.getElementById("bgm");
+    audio.volume = 0.4;
+    audio.play();
+    document.removeEventListener("click", playMusicOnce);
+});
+</script>
+
+</body>
+
+
+</body>
+</html>
