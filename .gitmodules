@@ -1,0 +1,3 @@
+[submodule "firework"]
+	path = firework
+	url = https://github.com/shadow191208/FireWork.git
